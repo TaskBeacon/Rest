@@ -1,0 +1,37 @@
+15.6361 	DATA 	Mouse: Left button down, pos=(986,723)
+15.7358 	DATA 	Mouse:  Left button up, pos=(986,723)
+15.8657 	DATA 	[TrialUnit] wait_and_continue: Continuing after key 'space'
+15.8658 	DATA 	[TrialUnit] Data: {'block_wait_keys': ['space'], 'block_onset_time': 0.002817400003550574, 'block_onset_time_global': 1745306814, 'block_flip_time': 14.75354459999653, 'block_response': 'space', 'block_response_time': 1.1119963000091957, 'block_close_time': 15.865623999998206, 'block_close_time_global': 1745306815}
+15.8686 	DATA 	[BlockUnit] Blockid: block_0
+15.8686 	DATA 	[BlockUnit] Blockidx: 0
+15.8686 	DATA 	[BlockUnit] Blockseed: 73105
+15.8686 	DATA 	[BlockUnit] Blocktrials: 2
+15.8687 	DATA 	[BlockUnit] Blockdist: {'EC': 1, 'EO': 1}
+15.8688 	DATA 	[BlockUnit] Blockconditions: ['EO' 'EC']
+15.8690 	DATA 	[Trigger] Trigger sent: 100
+15.8841 	DATA 	Keypress: space
+27.9354 	DATA 	Mouse: Left button down, pos=(1060,706)
+28.1030 	DATA 	Mouse:  Left button up, pos=(1060,706)
+31.3732 	DATA 	Mouse: Left button down, pos=(909,669)
+31.5050 	DATA 	Mouse:  Left button up, pos=(909,669)
+32.2851 	DATA 	[TrialUnit] wait_and_continue: Continuing after key 'space'
+32.2852 	DATA 	[TrialUnit] Data: {'inst_wait_keys': ['space'], 'inst_onset_time': 0.0033841999975265935, 'inst_onset_time_global': 1745306815, 'inst_flip_time': 15.881092399999034, 'inst_response': 'space', 'inst_response_time': 16.403937800001586, 'inst_close_time': 32.28510219999589, 'inst_close_time_global': 1745306832}
+32.3017 	DATA 	[Trigger] Trigger sent: 2
+32.3033 	DATA 	Keypress: space
+37.4544 	DATA 	Mouse: Left button down, pos=(951,709)
+37.5770 	DATA 	Mouse:  Left button up, pos=(951,709)
+38.6582 	DATA 	Keypress: space
+62.9506 	DATA 	[TrialUnit] Data: {'stim_duration': 30, 'stim_onset_time': 0.0018892999942181632, 'stim_onset_time_global': 1745306832, 'stim_onset_trigger': 2, 'stim_flip_time': 32.30131959999562, 'stim_close_time': 30.66530349999084, 'stim_close_time_global': 1745306862}
+104.3474 	DATA 	Mouse: Left button down, pos=(1188,721)
+104.4463 	DATA 	Mouse:  Left button up, pos=(1188,721)
+105.0715 	DATA 	[TrialUnit] wait_and_continue: Continuing after key 'space'
+105.0715 	DATA 	[TrialUnit] Data: {'inst_wait_keys': ['space'], 'inst_onset_time': 0.0054398000065702945, 'inst_onset_time_global': 1745306862, 'inst_flip_time': 62.9675974999991, 'inst_response': 'space', 'inst_response_time': 42.10379439999815, 'inst_close_time': 105.07146449999709, 'inst_close_time_global': 1745306904}
+105.0883 	DATA 	[Trigger] Trigger sent: 1
+105.0898 	DATA 	Keypress: space
+135.7205 	DATA 	[TrialUnit] Data: {'stim_duration': 30, 'stim_onset_time': 0.002149799998733215, 'stim_onset_time_global': 1745306904, 'stim_onset_trigger': 1, 'stim_flip_time': 105.08789150000666, 'stim_close_time': 30.648858200001996, 'stim_close_time_global': 1745306935}
+135.7210 	DATA 	[Trigger] Trigger sent: 101
+135.7211 	DATA 	[BlockUnit] Finished 'block_0' in 120.00s
+175.0159 	DATA 	Mouse: Left button down, pos=(1076,719)
+175.1158 	DATA 	Mouse:  Left button up, pos=(1076,719)
+175.8562 	DATA 	[TrialUnit] wait_and_continue: Experiment ended by key press.
+175.8563 	DATA 	[TrialUnit] Data: {'block_wait_keys': ['space'], 'block_onset_time': 0.002914600001531653, 'block_onset_time_global': 1745306935, 'block_flip_time': 135.73882830000366, 'block_response': 'space', 'block_response_time': 40.11729500000365, 'block_close_time': 175.8561788000079, 'block_close_time_global': 1745306975}

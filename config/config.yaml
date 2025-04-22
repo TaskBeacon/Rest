@@ -1,0 +1,136 @@
+# config.yaml
+# === Subject info ===
+subinfo_fields:
+  - name: subject_id
+    type: int
+    constraints:
+      min: 101
+      max: 999
+      digits: 3
+
+  - name: session_name
+    type: string
+
+  - name: experimenter
+    type: string
+
+  - name: gender
+    type: choice
+    choices: [Male, Female]
+
+subinfo_mapping:
+    subject_id: "被试号"
+    session_name: "Session名称(Practice/Experiment)"
+    experimenter: "主试姓名或缩写"
+    gender: "性别"
+    Male: "男"
+    Female: "女"
+    registration_failed: "注册失败。"
+    registration_successful: "注册成功！"
+    invalid_input: "字段 {field} 输入无效。"
+
+
+# === Window settings ===
+window:
+  size: [1920, 1080]
+  monitor: testMonitor
+  units: deg
+  screen: 1
+  bg_color: gray
+  fullscreen: True
+
+# === Task-level settings ===
+task:
+  total_blocks: 1
+  total_trials: 2
+  trial_per_block: 2
+  conditions: [EO, EC]
+  key_list: []
+  seed_mode: "same_across_sub"
+
+
+# === Stimuli (for MID task) ===
+stimuli:
+  EO_stim:
+    type: text
+    text: "+"
+    color: white
+
+  EC_stim:
+    type: text
+    text: ""
+    color: white
+  
+  general_instruction:
+    type: textbox
+    text: |
+      【静息态任务】
+
+      请尽量保持放松和安静
+      避免身体和眼睛的移动
+      本任务不涉及任何需要响应的内容
+      您只需按照指引保持状态即可
+      如果准备好了，请按【空格键】键开始任务。
+    color: white
+    pos: [0, 0] 
+    font: SimHei
+    alignment: center
+    letterHeight: 0.78
+
+  EC_instruction:
+    type: textbox
+    text: |
+      【闭眼阶段】
+
+      请您闭上眼睛，尽量放松身体，保持头部不动
+      请不要刻意控制呼吸，也不要睡着
+      保持自然状态，静静等待任务结束
+      按【空格键】键继续
+    color: white
+    font: SimHei
+    alignment: center
+    letterHeight: 0.78
+
+  EO_instruction:
+    type: textbox
+    text: |
+      【睁眼阶段】
+
+      请您注视屏幕中央的“+”符号
+      尽量避免眼球和身体的移动，也不要眨眼于频繁
+      请保持放松和专注，不要进行任何思考或刻意控制
+      保持注视，直到听到提示为止
+      按【空格键】键继续
+    color: white
+    font: SimHei
+    alignment: center
+    letterHeight: 0.78
+
+  good_bye:
+    type: textbox
+    text: |
+      任务结束
+      
+      感谢您的参与
+      请按【空格键】键退出
+    color: white
+    font: SimHei
+    alignment: center
+    letterHeight: 0.78
+
+# === Timing & Adaptivity ===
+timing:
+  EO_duration: 30
+  EC_duration: 30
+  
+triggers:
+  exp_onset: 98
+  exp_end: 99
+
+  block_onset: 100
+  block_end: 101
+
+  EC_onset: 1
+  EO_onset: 2
+
+
