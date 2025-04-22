@@ -1,5 +1,0 @@
-0.4796 	WARNING 	t of last frame was 28.88ms (=1/34)
-2.8523 	DATA 	Mouse: Left button down, pos=(1140,649)
-2.9528 	DATA 	Mouse:  Left button up, pos=(1140,649)
-3.3469 	DATA 	[TrialUnit] wait_and_continue: Experiment ended by key press.
-3.3470 	DATA 	[TrialUnit] Data: {'block_wait_keys': ['space'], 'block_onset_time': 0.0049666999984765425, 'block_onset_time_global': 1745306749, 'block_flip_time': 1.8161154999979772, 'block_response': 'space', 'block_response_time': 1.5306947999924887, 'block_close_time': 28.531811399996514, 'block_close_time_global': 1745306751}

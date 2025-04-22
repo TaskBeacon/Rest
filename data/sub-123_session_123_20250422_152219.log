@@ -1,4 +1,0 @@
-2.6925 	DATA 	Mouse: Left button down, pos=(1014,719)
-2.6933 	DATA 	Mouse:  Left button up, pos=(1014,719)
-6.8237 	DATA 	[TrialUnit] wait_and_continue: Experiment ended by key press.
-6.8237 	DATA 	[TrialUnit] Data: {'block_wait_keys': ['space'], 'block_onset_time': 0.00450549999368377, 'block_onset_time_global': 1745306546, 'block_flip_time': 1.661525299990899, 'block_response': 'space', 'block_response_time': 5.1620258999901125, 'block_close_time': 22.239316199993482, 'block_close_time_global': 1745306551}

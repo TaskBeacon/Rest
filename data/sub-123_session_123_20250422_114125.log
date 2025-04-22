@@ -1,7 +1,0 @@
-3.8074 	DATA 	[BlockUnit] Blockid: block_0
-3.8074 	DATA 	[BlockUnit] Blockidx: 0
-3.8074 	DATA 	[BlockUnit] Blockseed: 73105
-3.8075 	DATA 	[BlockUnit] Blocktrials: 2
-3.8075 	DATA 	[BlockUnit] Blockdist: {'EO': 1, 'EC': 1}
-3.8077 	DATA 	[BlockUnit] Blockconditions: ['EO' 'EC']
-3.8084 	DATA 	[Trigger] Trigger sent: 100
