@@ -120,8 +120,8 @@ stimuli:
 
 # === Timing & Adaptivity ===
 timing:
-  EO_duration: 30
-  EC_duration: 30
+  EO_duration: 15
+  EC_duration: 15
   
 triggers:
   exp_onset: 98
@@ -130,7 +130,9 @@ triggers:
   block_onset: 100
   block_end: 101
 
-  EC_onset: 1
-  EO_onset: 2
+  EC_onset: 10
+  EC_offset: 11
+  EO_onset: 20
+  EO_offset: 21
 
 
