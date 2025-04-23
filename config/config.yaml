@@ -36,7 +36,7 @@ window:
   monitor: testMonitor
   units: deg
   screen: 1
-  bg_color: gray
+  bg_color: black
   fullscreen: True
 
 # === Task-level settings ===
@@ -120,8 +120,8 @@ stimuli:
 
 # === Timing & Adaptivity ===
 timing:
-  EO_duration: 15
-  EC_duration: 15
+  EO_duration: 300
+  EC_duration: 300
   
 triggers:
   exp_onset: 98
