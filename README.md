@@ -2,7 +2,7 @@
 
 This task presents two resting-state conditions — **Eyes Open (EO)** and **Eyes Closed (EC)** — while recording neural signals (e.g., EEG, fMRI). It is implemented using the [PsyFlow](https://taskbeacon.github.io/psyflow/) framework.
 
----
+
 
 ## Task Overview
 
@@ -10,7 +10,7 @@ Participants are instructed to either fixate on a cross (Eyes Open) or close the
 
 This task is suitable for studies on baseline brain activity, spontaneous fluctuations, default mode network (DMN) activity, or physiological noise calibration.
 
----
+
 
 ## Task Flow
 
@@ -21,7 +21,7 @@ This task is suitable for studies on baseline brain activity, spontaneous fluctu
 | Stimulation | The fixation cross or blank screen is presented for **300 seconds**, depending on the condition. |
 | Goodbye     | A textbox thanks the participant and prompts exit with **space bar**. |
 
----
+
 
 ## Configuration Summary
 
@@ -36,7 +36,7 @@ Participants are registered with:
 
 These fields are localized to Chinese via `subinfo_mapping`.
 
----
+
 
 ### Window Settings (`window`)
 - Resolution: `1920 × 1080`
@@ -45,7 +45,7 @@ These fields are localized to Chinese via `subinfo_mapping`.
 - Monitor: `testMonitor`
 - Background color: `black`
 
----
+
 
 ### Stimuli (`stimuli`)
 | Stimulus       | Type     | Notes |
@@ -59,7 +59,7 @@ These fields are localized to Chinese via `subinfo_mapping`.
 
 All textboxes use `SimHei` font, are center-aligned, and designed for full-screen presentation.
 
----
+
 
 ### Timing (`timing`)
 - `EO_duration`: `300` seconds
@@ -67,7 +67,7 @@ All textboxes use `SimHei` font, are center-aligned, and designed for full-scree
 
 Each condition runs for 5 minutes, customizable in the config.
 
----
+
 
 ### Triggers (`triggers`)
 The following triggers are sent via `TriggerSender`:
@@ -79,7 +79,7 @@ The following triggers are sent via `TriggerSender`:
 
 These are intended for synchronizing external hardware (e.g., EEG or eye tracker).
 
----
+
 
 ## Running the Task
 
