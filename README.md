@@ -88,3 +88,4 @@ These are intended for synchronizing external hardware (e.g., EEG or eye tracker
 
 ```bash
 python main.py
+```

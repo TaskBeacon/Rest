@@ -77,9 +77,9 @@ stim_bank.preload_all()
 trigger_config = {
     **config.get('triggers', {})
 }
-triggerbank = TriggerBank(trigger_config)
+trigger_bank = TriggerBank(trigger_config)
 ser = serial.serial_for_url("loop://", baudrate=115200, timeout=1)
-triggersender = TriggerSender(
+trigger_sender = TriggerSender(
     trigger_func=lambda code: ser.write([1, 225, 1, 0, (code)]),
     post_delay=0,
     on_trigger_start=lambda: ser.open() if not ser.is_open else None,
@@ -87,39 +87,25 @@ triggersender = TriggerSender(
 )
 
 
+StimUnit(win, 'block').add_stim(stim_bank.get('general_instruction')).wait_and_continue()
+count_down(win, 3)   
 block = BlockUnit(
         block_id=f"block_0",
         block_idx=0,
         settings=settings,
         window=win,
         keyboard=keyboard
-    )
-
-block.generate_conditions(func=generate_balanced_conditions)
-
-
-@block.on_start
-def _block_start(b):
-    print("Block start {}".format(b.block_idx))
-    # b.logging_block_info()
-    triggersender.send(triggerbank.get("block_onset"))
-@block.on_end
-def _block_end(b):     
-    print("Block end {}".format(b.block_idx))
-    triggersender.send(triggerbank.get("block_end"))
-
-StimUnit(win, 'block').add_stim(stim_bank.get('general_instruction')).wait_and_continue()
-count_down(win, 3)        
-# 9. run block
-block.run_trial(
-    partial(run_trial, stim_bank=stim_bank, trigger_sender=triggersender, trigger_bank=triggerbank)
-)
+    ).generate_conditions(func=generate_balanced_conditions)\
+    .on_start(lambda b: trigger_sender.send(trigger_bank.get("block_onset")))\
+    .on_end(lambda b: trigger_sender.send(trigger_bank.get("block_end")))\
+    .run_trial(partial(run_trial, stim_bank=stim_bank, trigger_sender=trigger_sender, trigger_bank=trigger_bank))\
+    
     
 
 StimUnit(win, 'block').add_stim(stim_bank.get('good_bye')).wait_and_continue(terminate=True)
     
 import pandas as pd
-df = pd.DataFrame(block.to_dict())
+df = pd.DataFrame(block.get_dict())
 df.to_csv(settings.res_file, index=False)
 
 
