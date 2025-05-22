@@ -9,7 +9,8 @@ def run_trial(win, kb, settings, condition, stim_bank, trigger_sender):
     
     # --- instruction ---
     make_unit(unit_label='inst').add_stim(stim_bank.get(f"{condition}_instruction")) \
-    .wait_and_continue().to_dict(trial_data)  
+    .add_stim(stim_bank.get(f"{condition}_instruction_voice")) \
+    .show()
 
     # --- stim ---
     make_unit(unit_label='stim').add_stim(stim_bank.get(f"{condition}_stim")) \

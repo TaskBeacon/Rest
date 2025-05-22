@@ -43,8 +43,8 @@ window:
 # === Task-level settings ===
 task:
   total_blocks: 1
-  total_trials: 2
-  trial_per_block: 2
+  total_trials: 4
+  trial_per_block: 4
   conditions: [EO, EC]
   key_list: []
   seed_mode: "same_across_sub"
@@ -65,13 +65,17 @@ stimuli:
   general_instruction:
     type: textbox
     text: |
-      【静息态任务】
+      【静息态任务说明】
 
       请尽量保持放松和安静
       避免身体和眼睛的移动
+
       本任务不涉及任何需要响应的内容
+
       您只需按照指引保持状态即可
-      如果准备好了，请按【空格键】键开始任务。
+
+      如果准备好了
+      请按【空格键】键开始任务
     color: white
     pos: [0, 0] 
     font: SimHei
@@ -81,12 +85,19 @@ stimuli:
   EC_instruction:
     type: textbox
     text: |
-      【闭眼阶段】
+      
 
-      请您闭上眼睛，尽量放松身体，保持头部不动
-      请不要刻意控制呼吸，也不要睡着
-      保持自然状态，静静等待任务结束
-      按【空格键】键继续
+      请您闭上眼睛
+      
+      尽量放松身体
+      保持头部不动
+      
+      请不要刻意控制呼吸
+      也不要睡着
+      保持自然状态
+      
+      直到听到提示为止
+
     color: white
     font: SimHei
     alignment: center
@@ -95,13 +106,17 @@ stimuli:
   EO_instruction:
     type: textbox
     text: |
-      【睁眼阶段】
+      请您睁开眼睛
 
-      请您注视屏幕中央的“+”符号
-      尽量避免眼球和身体的移动，也不要眨眼于频繁
-      请保持放松和专注，不要进行任何思考或刻意控制
+      注视屏幕中央的注视点
+      尽量避免眼球和身体的移动
+      也不要眨眼于频繁
+
+      请保持放松和专注
+      不要进行任何思考或刻意控制
+
       保持注视，直到听到提示为止
-      按【空格键】键继续
+
     color: white
     font: SimHei
     alignment: center

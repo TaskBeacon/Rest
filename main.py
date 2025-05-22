@@ -31,11 +31,16 @@ trigger_sender = TriggerSender(
 # 5. Set up window & input
 win, kb = initialize_exp(settings)
 # 6. Setup stimulus bank
-stim_bank = StimBank(win,cfg['stim_config']).preload_all()
+stim_bank = StimBank(win,cfg['stim_config']).\
+            convert_to_voice(['general_instruction', 'EC_instruction', 'EO_instruction', 'good_bye'])\
+            .preload_all()
 # stim_bank.preview_all() 
 
 
-StimUnit(win, 'block').add_stim(stim_bank.get('general_instruction')).wait_and_continue()
+StimUnit(win, 'block')\
+    .add_stim(stim_bank.get('general_instruction'))\
+    .add_stim(stim_bank.get('general_instruction_voice'))\
+    .wait_and_continue()
 count_down(win, 3)   
 block = BlockUnit(
         block_id=f"block_0",
@@ -50,7 +55,10 @@ block = BlockUnit(
     
     
 
-StimUnit(win, 'block').add_stim(stim_bank.get('good_bye')).wait_and_continue(terminate=True)
+StimUnit(win, 'block')\
+    .add_stim(stim_bank.get('good_bye'))\
+    .add_stim(stim_bank.get('good_bye_voice'))\
+    .wait_and_continue(terminate=True)
     
 
 df = pd.DataFrame(block.get_dict())
