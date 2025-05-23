@@ -48,7 +48,7 @@ block = BlockUnit(
         settings=settings,
         window=win,
         keyboard=kb
-    ).generate_conditions()\
+    ).generate_conditions(order='sequential')\
     .on_start(lambda b: trigger_sender.send(settings.triggers.get("block_onset")))\
     .on_end(lambda b: trigger_sender.send(settings.triggers.get("block_end")))\
     .run_trial(func=run_trial, stim_bank=stim_bank, trigger_sender=trigger_sender)
