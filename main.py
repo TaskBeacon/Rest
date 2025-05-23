@@ -37,7 +37,7 @@ stim_bank = StimBank(win,cfg['stim_config']).\
 # stim_bank.preview_all() 
 
 
-StimUnit(win, 'block')\
+StimUnit('block', win, kb)\
     .add_stim(stim_bank.get('general_instruction'))\
     .add_stim(stim_bank.get('general_instruction_voice'))\
     .wait_and_continue()
@@ -55,7 +55,7 @@ block = BlockUnit(
     
     
 
-StimUnit(win, 'block')\
+StimUnit('block', win, kb)\
     .add_stim(stim_bank.get('good_bye'))\
     .add_stim(stim_bank.get('good_bye_voice'))\
     .wait_and_continue(terminate=True)
