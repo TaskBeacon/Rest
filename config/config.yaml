@@ -43,8 +43,8 @@ window:
 # === Task-level settings ===
 task:
   total_blocks: 1
-  total_trials: 4
-  trial_per_block: 4
+  total_trials: 6
+  trial_per_block: 6
   conditions: [EO, EC]
   key_list: []
   seed_mode: "same_across_sub"
@@ -136,8 +136,8 @@ stimuli:
 
 # === Timing & Adaptivity ===
 timing:
-  EO_duration: 300
-  EC_duration: 300
+  EO_duration: 180
+  EC_duration: 180
   
 triggers:
   exp_onset: 98
