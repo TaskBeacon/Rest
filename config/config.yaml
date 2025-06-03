@@ -8,11 +8,14 @@ subinfo_fields:
       max: 999
       digits: 3
 
-  - name: session_name
+  - name: subname    
     type: string
 
-  - name: experimenter
-    type: string
+  - name: age 
+    type: int
+    constraints:
+      min: 5
+      max: 60
 
   - name: gender
     type: choice
@@ -20,14 +23,14 @@ subinfo_fields:
 
 subinfo_mapping:
     subject_id: "被试号"
-    session_name: "Session名称(Practice/Experiment)"
-    experimenter: "主试姓名或缩写"
+    subname: "被试姓名(拼音)"
+    age: "年龄"
     gender: "性别"
     Male: "男"
     Female: "女"
     registration_failed: "注册失败。"
     registration_successful: "注册成功！"
-    invalid_input: "字段 {field} 输入无效。"
+    invalid_input: "字段 {field} 输入无效"
 
 
 # === Window settings ===
@@ -37,15 +40,16 @@ window:
   screen: 1
   bg_color: gray
   fullscreen: True
-  monitor_width_cm: 33.62
-  monitor_distance_cm: 57
+  monitor_width_cm: 60
+  monitor_distance_cm: 72
 
 # === Task-level settings ===
 task:
+  task_name: "eeg_rest"
   total_blocks: 1
-  total_trials: 6
-  trial_per_block: 6
-  conditions: [EO, EC]
+  total_trials: 4
+  trial_per_block: 4
+  conditions: [EC, EO]
   key_list: []
   seed_mode: "same_across_sub"
 
@@ -59,7 +63,7 @@ stimuli:
 
   EC_stim:
     type: text
-    text: ""
+    text: "请闭眼"
     color: white
   
   general_instruction:
@@ -67,26 +71,27 @@ stimuli:
     text: |
       【静息态任务说明】
 
+      本任务不涉及任何需要响应的内容
+
       请尽量保持放松和安静
       避免身体和眼睛的移动
-
-      本任务不涉及任何需要响应的内容
 
       您只需按照指引保持状态即可
 
       如果准备好了
-      请按【空格键】键开始任务
+      请按【空格键】开始任务
     color: white
     pos: [0, 0] 
     font: SimHei
     alignment: center
     letterHeight: 0.78
+    units: deg
+    size: [20, 5]
 
   EC_instruction:
     type: textbox
     text: |
       
-
       请您闭上眼睛
       
       尽量放松身体
@@ -102,6 +107,8 @@ stimuli:
     font: SimHei
     alignment: center
     letterHeight: 0.78
+    units: deg
+    size: [20, 5]
 
   EO_instruction:
     type: textbox
@@ -115,12 +122,14 @@ stimuli:
       请保持放松和专注
       不要进行任何思考或刻意控制
 
-      保持注视，直到听到提示为止
+      直到听到提示为止
 
     color: white
     font: SimHei
     alignment: center
     letterHeight: 0.78
+    units: deg
+    size: [20, 5]
 
   good_bye:
     type: textbox
@@ -133,6 +142,8 @@ stimuli:
     font: SimHei
     alignment: center
     letterHeight: 0.78
+    units: deg
+    size: [20, 5]
 
 # === Timing & Adaptivity ===
 timing:
