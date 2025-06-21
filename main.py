@@ -1,11 +1,8 @@
 from psyflow import BlockUnit,StimBank, StimUnit,SubInfo,TaskSettings, TriggerSender
 from psyflow import load_config,count_down, initialize_exp
-import pandas as pd
 from psychopy import core
 import serial
 from src import run_trial
-
-
 
 # 1. Load config
 cfg = load_config()

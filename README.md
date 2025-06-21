@@ -1,91 +1,105 @@
-# Resting-State Task – PsyFlow Version
+# Resting-state Task (EC+EO)
 
-This task presents two resting-state conditions — **Eyes Open (EO)** and **Eyes Closed (EC)** — while recording neural signals (e.g., EEG, fMRI). It is implemented using the [PsyFlow](https://taskbeacon.github.io/psyflow/) framework.
-
-
-
-## Task Overview
-
-Participants are instructed to either fixate on a cross (Eyes Open) or close their eyes and relax (Eyes Closed). Each condition lasts for a fixed duration of 5 minutes (300 seconds). There is no need to respond during the task. Instructions are shown before each condition and a goodbye screen concludes the session.
-
-This task is suitable for studies on baseline brain activity, spontaneous fluctuations, default mode network (DMN) activity, or physiological noise calibration.
-
-
-
-## Task Flow
-
-| Step        | Description |
-|-|-|
-| General Instruction | A textbox introduces the resting-state paradigm. Participant presses **space bar** to continue. |
-| Condition Instruction | A textbox explains the upcoming condition (EO or EC). Press **space bar** to proceed. |
-| Stimulation | The fixation cross or blank screen is presented for **300 seconds**, depending on the condition. |
-| Goodbye     | A textbox thanks the participant and prompts exit with **space bar**. |
+| Field                | Value                        |
+|----------------------|------------------------------|
+| Name                 |Resting state                 |
+| Version              |main |
+| URL / Repository     |  https://github.com/TaskBeacon/REST |
+| Short Description    | EC + EO                            |
+| Created By           | Zhipeng Cao (zhipeng30@foxmail.com)    |
+| Date Updated         | 2025/06/21  |
+| PsyFlow Version      | 0.1.0      |
+| PsychoPy Version     | 2025.1.1    |
 
 
+## 1. Task Overview
 
-## Configuration Summary
+This task is a resting‐state paradigm with two conditions—eyes closed (EC) and eyes open (EO)—each presented sequentially in a single block. Participants receive general instructions, complete a brief countdown, then experience alternating EC and EO trials of fixed duration without any active response requirements; triggers mark key events for synchronization.
 
-All key settings are stored in the `config.yaml` file. Here's a breakdown of relevant sections:
+## 2. Task Flow
 
-### Subject Info (`subinfo_fields`)
-Participants are registered with:
-- **Subject ID** (3-digit number from 101–999)
-- **Session name** (e.g., Practice, Experiment)
-- **Experimenter name**
-- **Gender** (Male or Female)
+### Block-Level Flow
 
-These fields are localized to Chinese via `subinfo_mapping`.
+| Step                                 | Description                                                                                                                                                                                                                                                                                      |
+|--------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Load configuration                   | Call `load_config()` to read `config/config.yaml` and parse subform, task, stimulus, and trigger settings.                                                                                                                                                                                        |
+| Collect subject info                 | Instantiate `SubInfo(cfg['subform_config'])` and call `.collect()` to prompt for **subject_id**, **subname**, **age**, and **gender** via a form.                                                                                                                                                  |
+| Initialize Task Settings             | Create `TaskSettings.from_dict(cfg['task_config'])`, then `settings.add_subinfo(subject_data)` to store demographics in settings.                                                                                                                                                                  |
+| Setup triggers                       | Assign `settings.triggers = cfg['trigger_config']`; open a loopback serial port at 115200 baud; create `TriggerSender` with `trigger_func` writing bytes `[1,225,1,0,code]` and `post_delay=0.001 s`.                                                                                                 |
+| Initialize window & input            | Call `initialize_exp(settings)` to open a PsychoPy window with parameters from `window` config and enable keyboard input.                                                                                                                                                                          |
+| Setup stimulus bank                  | Instantiate `StimBank(win, cfg['stim_config'])`; call `.convert_to_voice()` on instruction keys (`general_instruction`, `EC_instruction`, `EO_instruction`, `good_bye`); then `.preload_all()`.                                                                                                  |
+| Save settings                        | Call `settings.save_to_json()` to export all settings and subject info to a JSON file for record‐keeping.                                                                                                                                                                                         |
+| Experiment onset                     | Use `trigger_sender.send(settings.triggers.get("exp_onset"))` to mark the start of the experiment.                                                                                                                                                                                               |
+| Present general instructions         | Create `StimUnit('instruction', win, kb)`; add visual and voice versions of `general_instruction`; call `.wait_and_continue()` to display until spacebar press.                                                                                                                                   |
+| Countdown                            | Call `count_down(win, 3)` to show a 3-second onscreen countdown.                                                                                                                                                                                                                                 |
+| Run block                            | Instantiate `BlockUnit(block_id='block_0', block_idx=0, settings, window=win, keyboard=kb)`; `.generate_conditions(order='sequential')`; `.on_start()` sends `block_onset` trigger; `.on_end()` sends `block_end` trigger; `.run_trial()` loops over conditions using `run_trial` with `stim_bank` and `trigger_sender`. |
+| Present goodbye                      | Create `StimUnit('block', win, kb)`; add visual and voice `good_bye` stimuli; call `.wait_and_continue(terminate=True)` to display until final spacebar press and then close.                                                                                                                    |
+| Experiment end                       | Use `trigger_sender.send(settings.triggers.get("exp_end"))` to mark the end of the experiment.                                                                                                                                                                                                   |
+| Cleanup                              | Close the serial port (`ser.close()`) and call `core.quit()` to exit PsychoPy.                                                                                                                                                                                                                   |
 
+### Trial-Level Flow
 
+| Step                          | Description                                                                                                                                                                                                              |
+|-------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Initialize trial data         | Create `trial_data = {"condition": condition}` to record the current condition (“EC” or “EO”).                                                                                                                           |
+| Create StimUnit factory       | Use `make_unit = partial(StimUnit, win=win, kb=kb, triggersender=trigger_sender)` to simplify subsequent stimulus calls.                                                                                                 |
+| Present condition instruction | Call `make_unit(unit_label='inst')`; add `stim_bank.get(f"{condition}_instruction")` and its voice (`..._instruction_voice`); then `.show()` to display until a keypress.                                            |
+| Present stimulus              | Call `make_unit(unit_label='stim')`; add `stim_bank.get(f"{condition}_stim")` (EC_stim or EO_stim); then `.show(duration=settings.{condition}_duration, onset_trigger=settings.triggers.get(f"{condition}_onset"), offset_trigger=settings.triggers.get(f"{condition}_offset"))`; finally `.to_dict(trial_data)` to log timestamps. |
+| Return trial data             | Return `trial_data`, containing `condition` and any timing/trigger fields added by `.to_dict()`.                                                                                                                         |
 
-### Window Settings (`window`)
-- Resolution: `1920 × 1080`
-- Units: `deg`
-- Fullscreen: `True`
-- Monitor: `testMonitor`
-- Background color: `black`
+## 3. Configuration Summary
 
+### a. Subject Info
 
+| Field       | Meaning                                            |
+|-------------|----------------------------------------------------|
+| subject_id  | Three-digit integer identifier between 101 and 999 |
+| subname     | Subject’s name in Pinyin                           |
+| age         | Integer age in years (5–60)                        |
+| gender      | Choice: “Male” or “Female”                         |
 
-### Stimuli (`stimuli`)
-| Stimulus       | Type     | Notes |
-|-|-|-|
-| `general_instruction` | `textbox` | General task instruction in Chinese |
-| `EO_instruction`      | `textbox` | Instruction for eyes-open condition |
-| `EC_instruction`      | `textbox` | Instruction for eyes-closed condition |
-| `EO_stim`             | `text`    | Fixation cross `"+"` |
-| `EC_stim`             | `text`    | Blank screen |
-| `good_bye`            | `textbox` | Final thank-you screen |
+### b. Window Settings
 
-All textboxes use `SimHei` font, are center-aligned, and designed for full-screen presentation.
+| Parameter             | Value        |
+|-----------------------|--------------|
+| size                  | [1920, 1080] |
+| units                 | deg          |
+| screen                | 1            |
+| bg_color              | gray         |
+| fullscreen            | True         |
+| monitor_width_cm      | 60           |
+| monitor_distance_cm   | 72           |
 
+### c. Stimuli
 
+| Name                  | Type     | Description                                                                                                                                                                                                                                               |
+|-----------------------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| EO_stim               | text     | A black “+” fixation cross shown at screen center.                                                                                                                                                                                                        |
+| EC_stim               | text     | A black text “请闭眼” (“please close your eyes”) shown at screen center.                                                                                                                                                                                  |
+| general_instruction   | textbox  | Initial instructions in Chinese (【静息态任务说明】…), displayed centrally (font = SimHei, color = white, letterHeight = 0.78 deg, box size = [20, 5] deg); prompts participants to follow guidance and press space to start.                                      |
+| EC_instruction        | textbox  | Eyes-closed instructions in Chinese (“请您闭上眼睛…直到听到提示为止”), centrally displayed with same font, color, size, and units as above.                                                                                                                |
+| EO_instruction        | textbox  | Eyes-open instructions in Chinese (“请您睁开眼睛…直到听到提示为止”), centrally displayed with same properties.                                                                                                                                                |
+| good_bye              | textbox  | End-of-task screen in Chinese (“任务结束\n\n感谢您的参与\n请按【空格键】键退出”), centrally displayed with same font, color, letterHeight, and box size.                                                                                                  |
 
-### Timing (`timing`)
-- `EO_duration`: `300` seconds
-- `EC_duration`: `300` seconds
+### d. Timing
 
-Each condition runs for 5 minutes, customizable in the config.
+| Phase   | Duration    |
+|---------|-------------|
+| EC      | 180 seconds |
+| EO      | 180 seconds |
 
+### e. Triggers
 
+| Event        | Code |
+|--------------|------|
+| exp_onset    | 98   |
+| exp_end      | 99   |
+| block_onset  | 100  |
+| block_end    | 101  |
+| EC_onset     | 10   |
+| EC_offset    | 11   |
+| EO_onset     | 20   |
+| EO_offset    | 21   |
 
-### Triggers (`triggers`)
-The following triggers are sent via `TriggerSender`:
-
-- **Experiment**: `exp_onset = 98`, `exp_end = 99`
-- **Block**: `block_onset = 100`, `block_end = 101`
-- **Eyes Closed**: `EC_onset = 10`, `EC_offset = 11`
-- **Eyes Open**: `EO_onset = 20`, `EO_offset = 21`
-
-These are intended for synchronizing external hardware (e.g., EEG or eye tracker).
-
-
-
-## Running the Task
-
-1. Make sure all dependencies are installed (see below).
-2. Launch the experiment via:
-
-```bash
-python main.py
-```
+## 4. Methods
+The experiment consists of one block containing four sequential rest trials: eyes closed (EC), eyes open (EO), eyes closed (EC), and eyes open (EO), each lasting 180 s for a total data collection time of 720 s (12 minutes).Participants first provide demographic information (ID, name in Pinyin, age, gender) via a modal form. After settings and triggers initialize, they view general task instructions in Chinese, followed by a 3‑second on‑screen countdown. Each trial begins with an on‑screen text instruction and its pre‑recorded voice version. Immediately afterward, the resting‑state stimulus (a central fixation cross for EO trials or the text “请闭眼” ("close your eyes") for EC trials) appears for exactly 180 s. The display window is set to 1920×1080 pixels in degrees of visual angle, with a gray background and a viewing distance of 72 cm. 
