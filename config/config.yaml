@@ -59,12 +59,12 @@ stimuli:
   EO_stim:
     type: text
     text: "+"
-    color: white
+    color: black
 
   EC_stim:
     type: text
     text: "请闭眼"
-    color: white
+    color: black
   
   general_instruction:
     type: textbox
@@ -72,10 +72,6 @@ stimuli:
       【静息态任务说明】
 
       本任务不涉及任何需要响应的内容
-
-      请尽量保持放松和安静
-      避免身体和眼睛的移动
-
       您只需按照指引保持状态即可
 
       如果准备好了
@@ -96,10 +92,7 @@ stimuli:
       
       尽量放松身体
       保持头部不动
-      
-      请不要刻意控制呼吸
-      也不要睡着
-      保持自然状态
+      不要睡着
       
       直到听到提示为止
 
@@ -117,10 +110,7 @@ stimuli:
 
       注视屏幕中央的注视点
       尽量避免眼球和身体的移动
-      也不要眨眼于频繁
-
-      请保持放松和专注
-      不要进行任何思考或刻意控制
+      也不要频繁眨眼
 
       直到听到提示为止
 
